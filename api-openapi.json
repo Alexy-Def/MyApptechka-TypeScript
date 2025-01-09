@@ -1,0 +1,235 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/v1/general": {
+      "get": {
+        "operationId": "GeneralController_hello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetHelloResponseDTO" } } }
+          }
+        },
+        "tags": ["general"]
+      }
+    },
+    "/api/v1/health-check": {
+      "get": {
+        "operationId": "HealthCheckController_checkHealth",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["health-check"]
+      }
+    },
+    "/api/v1/auth/sign-up": {
+      "post": {
+        "operationId": "AuthController_signUp",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SignUpBodyDTO" } } }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["auth"]
+      }
+    },
+    "/api/v1/auth/sign-in": {
+      "post": {
+        "operationId": "AuthController_signIn",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SignInBodyDTO" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SignInResponseDTO" } } }
+          }
+        },
+        "tags": ["auth"]
+      }
+    },
+    "/api/v1/auth/renew-tokens": {
+      "post": {
+        "operationId": "AuthController_renewTokens",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["auth"]
+      }
+    },
+    "/api/v1/auth/sign-out": {
+      "post": {
+        "operationId": "AuthController_logOut",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["auth"],
+        "security": [{ "bearer": [] }, { "access_token": [] }]
+      }
+    },
+    "/api/v1/auth/email-confirmation/confirm": {
+      "post": {
+        "operationId": "EmailConfirmationController_confirmEmail",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ConfirmEmailBodyDTO" } } }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["auth/email-confirmation"]
+      }
+    },
+    "/api/v1/auth/email-confirmation/verify-token": {
+      "post": {
+        "operationId": "EmailConfirmationController_verifyToken",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/VerifyEmailConfirmationTokenBodyDTO" } }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["auth/email-confirmation"]
+      }
+    },
+    "/api/v1/auth/email-confirmation/resend": {
+      "post": {
+        "operationId": "EmailConfirmationController_resendLink",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ResendLinkBodyDTO" } } }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["auth/email-confirmation"]
+      }
+    },
+    "/api/v1/auth/tfa/secret": {
+      "post": {
+        "operationId": "TfaController_generateSecret",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/GenerateSecretResponseDTO" } }
+            }
+          }
+        },
+        "tags": ["auth/tfa"],
+        "security": [{ "bearer": [] }, { "access_token": [] }]
+      }
+    },
+    "/api/v1/auth/tfa/change-secret": {
+      "post": {
+        "operationId": "TfaController_changeSecret",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ChangeSecretBodyDTO" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ChangeSecretResponseDTO" } } }
+          }
+        },
+        "tags": ["auth/tfa"],
+        "security": [{ "bearer": [] }, { "access_token": [] }]
+      }
+    },
+    "/api/v1/auth/tfa/verify": {
+      "post": {
+        "operationId": "TfaController_verifyCode",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/VerifyCodeBodyDTO" } } }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["auth/tfa"],
+        "security": [{ "bearer": [] }, { "access_token": [] }]
+      }
+    }
+  },
+  "info": { "title": "template", "description": "", "version": "0.1.0", "contact": {} },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": { "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" } },
+    "schemas": {
+      "GetHelloResponseDTO": {
+        "type": "object",
+        "properties": { "result": { "type": "string", "example": "string" } },
+        "required": ["result"]
+      },
+      "SignUpBodyDTO": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string", "example": "koko@ko.ko", "description": "Email" },
+          "password": { "type": "string", "example": "string" }
+        },
+        "required": ["email", "password"]
+      },
+      "SignInBodyDTO": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string", "example": "koko@ko.ko", "description": "Email" },
+          "password": { "type": "string", "example": "string" }
+        },
+        "required": ["email", "password"]
+      },
+      "SignInResponseDTO": {
+        "type": "object",
+        "properties": { "isTfaEnabled": { "type": "boolean", "example": true } },
+        "required": ["isTfaEnabled"]
+      },
+      "ConfirmEmailBodyDTO": {
+        "type": "object",
+        "properties": { "token": { "type": "string", "example": "string", "pattern": "/^[\\w\\d]{32}$/" } },
+        "required": ["token"]
+      },
+      "VerifyEmailConfirmationTokenBodyDTO": {
+        "type": "object",
+        "properties": { "token": { "type": "string", "example": "string", "pattern": "/^[\\w\\d]{32}$/" } },
+        "required": ["token"]
+      },
+      "ResendLinkBodyDTO": {
+        "type": "object",
+        "properties": { "email": { "type": "string", "example": "koko@ko.ko", "description": "Email" } },
+        "required": ["email"]
+      },
+      "GenerateSecretResponseDTO": {
+        "type": "object",
+        "properties": {
+          "otpAuthUrl": { "type": "string", "example": "string" },
+          "secret": { "type": "string", "example": "string" }
+        },
+        "required": ["otpAuthUrl", "secret"]
+      },
+      "ChangeSecretBodyDTO": {
+        "type": "object",
+        "properties": { "code": { "type": "string", "example": "string", "maxLength": 6, "minLength": 6 } },
+        "required": ["code"]
+      },
+      "ChangeSecretResponseDTO": {
+        "type": "object",
+        "properties": {
+          "otpAuthUrl": { "type": "string", "example": "string" },
+          "secret": { "type": "string", "example": "string" }
+        },
+        "required": ["otpAuthUrl", "secret"]
+      },
+      "VerifyCodeBodyDTO": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string", "example": "string", "maxLength": 6, "minLength": 6 },
+          "useNewSecret": { "type": "boolean", "example": true }
+        },
+        "required": ["code"]
+      }
+    }
+  }
+}

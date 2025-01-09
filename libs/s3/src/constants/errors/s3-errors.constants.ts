@@ -1,0 +1,3 @@
+export enum S3_ERROR_CONSTANT {
+  UPLOAD_FAILED = 'UPLOAD_FAILED',
+}

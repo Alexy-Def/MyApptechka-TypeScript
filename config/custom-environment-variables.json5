@@ -1,0 +1,75 @@
+{
+  CORS: 'CORS',
+  LOGGER_LEVEL: 'LOGGER_LEVEL',
+  ENVIRONMENT: 'ENVIRONMENT',
+  SENTRY: {
+    ENABLED: 'SENTRY_ENABLED',
+    DSN: 'SENTRY_DSN',
+  },
+  POSTGRES: {
+    HOST: 'POSTGRES_HOST',
+    USERNAME: 'POSTGRES_USERNAME',
+    PASSWORD: 'POSTGRES_PASSWORD',
+    PORT: 'POSTGRES_PORT',
+    DB: 'POSTGRES_DB',
+    RETRY_ATTEMPTS: 'POSTGRES_RETRY_ATTEMPTS',
+    RETRY_DELAY: 'POSTGRES_RETRY_DELAY',
+  },
+  API: {
+    PORT: 'API_PORT',
+    ENABLE_SWAGGER: 'ENABLE_SWAGGER',
+  },
+  APM: {
+    ENABLED: 'APM_ENABLED',
+    SERVICE_NAME: 'APM_SERVICE_NAME',
+    SERVER_URL: 'APM_SERVER_URL',
+    LOG_LEVEL: 'APM_LOG_LEVEL',
+    SECRET_TOKEN: 'APM_SECRET_TOKEN',
+    API_KEY: 'APM_API_KEY',
+  },
+  AUTH: {
+    ACCESS_JWT_SECRET: 'AUTH_ACCESS_JWT_SECRET',
+    REFRESH_JWT_SECRET: 'AUTH_REFRESH_JWT_SECRET',
+    ACCESS_TOKEN_EXPIRES_IN: 'AUTH_ACCESS_TOKEN_EXPIRES_IN',
+    REFRESH_TOKEN_EXPIRES_IN: 'AUTH_REFRESH_TOKEN_EXPIRES_IN',
+    IS_TFA_ENABLED: {
+      __name: 'AUTH_IS_TFA_ENABLED',
+      __format: 'boolean',
+    },
+  },
+  COOKIE: {
+    MAX_AGE: {
+      __name: 'COOKIE_MAX_AGE',
+      __format: 'number',
+    },
+    SECURE: {
+      __name: 'COOKIE_SECURE',
+      __format: 'boolean',
+    },
+    SAME_SITE: 'COOKIE_SAME_SITE',
+    HTTP_ONLY: {
+      __name: 'COOKIE_HTTP_ONLY',
+      __format: 'boolean',
+    },
+  },
+  MAIL: {
+    GATEWAYS: {
+      __name: 'MAIL_GATEWAYS',
+      __format: 'json',
+    },
+  },
+  SLACK: {
+    URL: 'SLACK_URL',
+  },
+  SENDGRID: {
+    API_KEY: 'SENDGRID_API_KEY',
+    SENDER: 'SENDGRID_SENDER',
+  },
+  AWS: {
+    ACCESS_KEY_ID: 'AWS_ACCESS_KEY_ID',
+    ACCESS_KEY: 'AWS_ACCESS_KEY',
+    REGION: 'AWS_REGION',
+    PRIVATE_BUCKET: 'AWS_PRIVATE_BUCKET',
+    PUBLIC_BUCKET: 'AWS_PUBLIC_BUCKET',
+  },
+}

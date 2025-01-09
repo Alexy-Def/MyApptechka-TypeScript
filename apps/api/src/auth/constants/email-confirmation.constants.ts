@@ -1,0 +1,15 @@
+const RESEND_INTERVAL_MINUTES = 15;
+
+export const EMAIL_CONFIRMATION_TOKEN = {
+  PATTERN: /^[\w\d]{32}$/,
+  LENGTH: 32,
+  LIFETIME_IN_MILLISECONDS: 60 * 60 * 1000,
+  RESEND_INTERVAL_IN_MILLISECONDS: RESEND_INTERVAL_MINUTES * 60 * 1000,
+  RESEND_ATTEMPTS_BEFORE_BLOCKING: 1,
+} as const;
+
+export const EMAIL_CONFIRMATION_MAIL = {
+  TEMPLATE_NAME: 'email-confirmation',
+  PLAIN_TEMPLATE_NAME: 'email-confirmation.plain',
+  SUBJECT: 'Email confirmation',
+} as const;

@@ -1,0 +1,14 @@
+{
+  CORS: false,
+  ENVIRONMENT: 'production',
+  LOGGER_TRANSPORTS: [
+    {
+      TYPE: 'console',
+      FORMAT: 'json',
+      LEVEL: 'verbose',
+    },
+  ],
+  API: {
+    ENABLE_SWAGGER: false,
+  },
+}

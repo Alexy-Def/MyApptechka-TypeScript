@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": false,
+    "paths": {
+      "@libs/apm": ["libs/apm/src"],
+      "@libs/apm/*": ["libs/apm/src/*"],
+      "@libs/utils": ["libs/utils/src"],
+      "@libs/utils/*": ["libs/utils/src/*"],
+      "@libs/typeorm-ext": ["libs/typeorm-ext/src"],
+      "@libs/typeorm-ext/*": ["libs/typeorm-ext/src/*"],
+      "@app/api-client-types": ["libs/api-client-types/src"],
+      "@app/api-client-types/*": ["libs/api-client-types/src/*"],
+      "@modules/*": ["apps/api/src/*"],
+      "@libs/s3": ["libs/s3/src"],
+      "@libs/s3/*": ["libs/s3/src/*"],
+      "@libs/nestjs-logger": ["libs/nestjs-logger/src"],
+      "@libs/nestjs-logger/*": ["libs/nestjs-logger/src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"],
+  "ts-node": {
+    "files": true
+  }
+}

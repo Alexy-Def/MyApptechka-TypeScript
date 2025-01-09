@@ -1,0 +1,66 @@
+{
+  CORS: true,
+  ENVIRONMENT: 'local',
+  SENTRY: {
+    ENABLED: true,
+    DSN: '',
+  },
+  POSTGRES: {
+    HOST: 'localhost',
+    USERNAME: 'postgres',
+    PASSWORD: 'root',
+    PORT: 5432,
+    DB: 'default',
+    RETRY_ATTEMPTS: 15,
+    RETRY_DELAY: 1000,
+  },
+  LOGGER_TRANSPORTS: [
+    {
+      TYPE: 'console',
+      FORMAT: 'pretty-log',
+      LEVEL: 'verbose',
+    },
+  ],
+  API: {
+    PORT: 3001,
+    ENABLE_SWAGGER: true,
+  },
+  APM: {
+    ENABLED: false,
+    SERVICE_NAME: '',
+    SERVER_URL: '',
+    LOG_LEVEL: '',
+    SECRET_TOKEN: '',
+    API_KEY: '',
+  },
+  AUTH: {
+    ACCESS_JWT_SECRET: 'a',
+    REFRESH_JWT_SECRET: 'a',
+    ACCESS_TOKEN_EXPIRES_IN: '10m',
+    REFRESH_TOKEN_EXPIRES_IN: '12h',
+    IS_TFA_ENABLED: true,
+  },
+  COOKIE: {
+    MAX_AGE: 604800000,
+    SECURE: true,
+    SAME_SITE: 'none',
+    HTTP_ONLY: true,
+  },
+  MAIL: {
+    GATEWAYS: ['sendgrid'],
+  },
+  SLACK: {
+    URL: '',
+  },
+  SENDGRID: {
+    API_KEY: '',
+    SENDER: '',
+  },
+  AWS: {
+    ACCESS_KEY_ID: '',
+    ACCESS_KEY: '',
+    REGION: 'eu-central-1',
+    PRIVATE_BUCKET: '',
+    PUBLIC_BUCKET: '',
+  },
+}

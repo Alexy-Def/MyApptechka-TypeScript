@@ -1,0 +1,10 @@
+{
+  CORS: true,
+  ENVIRONMENT: 'develop',
+  POSTGRES: {
+    HOST: 'postgres',
+  },
+  MAIL: {
+    GATEWAYS: ['slack'],
+  },
+}

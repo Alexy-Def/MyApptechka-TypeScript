@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  api:
+    image: $IMAGE
+    restart: always
+    command: yarn start:api:prod
+    environment:
+      - NODE_CONFIG_ENV
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_DB= #database_name
+      - POSTGRES_PASSWORD
+      - AUTH_ACCESS_JWT_SECRET
+      - AUTH_REFRESH_JWT_SECRET
+      - GOOGLE_OAUTH_CLIENT_ID
+      - SLACK_URL
+    ports:
+      - '30001:3001'
+    labels:
+      SERVICE_NAME: '' # service_name
+      SERVICE_3001_ENV: '$SERVICE_ENV_LABEL'
+      SERVICE_3001_TAGS: '$SERVICE_TAGS_LABEL'
+      SERVICE_3001_WS: 'true'
+      # SERVICE_3001_ALLOW_IP: 'all' # разрешить доступ из сети интернет
+      SERVICE_3001_URL: 'api'
+    networks:
+      backend:
+
+  postgres:
+    image: postgres:16.3-alpine
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_DB= #database_name
+      - POSTGRES_PASSWORD
+    ports:
+      - '127.0.0.1:35432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    restart: always
+    networks:
+      backend:
+
+volumes:
+  postgres_data:
+
+networks:
+  backend:
+    driver: overlay
+    attachable: true

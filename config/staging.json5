@@ -1,0 +1,7 @@
+{
+  CORS: true,
+  ENVIRONMENT: 'staging',
+  POSTGRES: {
+    HOST: 'postgres',
+  },
+}

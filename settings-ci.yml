@@ -1,0 +1,87 @@
+---
+trufflehog_ignore: true
+
+deploy:
+  environment:
+    develop:
+      branch: develop
+      variables:
+        - NODE_CONFIG_ENV: '$CI_ENVIRONMENT_NAME'
+        - SERVICE_ENV_LABEL: 'dev'
+        - SERVICE_TAGS_LABEL: 'web'
+        - DOCKER_HOST: '' #ssh://user@ip_address
+      docker_stack_server: #user@ip_address
+    staging:
+      branch: staging
+      variables:
+        - NODE_CONFIG_ENV: '$CI_ENVIRONMENT_NAME'
+        - SERVICE_ENV_LABEL: 'stage'
+        - SERVICE_TAGS_LABEL: 'web'
+        - DOCKER_HOST: '' #ssh://user@ip_address
+      docker_stack_server: #user@ip_address
+    production:
+      branch: production
+      variables:
+        - NODE_CONFIG_ENV: '$CI_ENVIRONMENT_NAME'
+        - SERVICE_ENV_LABEL: 'prod'
+        - SERVICE_TAGS_LABEL: 'web'
+        - DOCKER_HOST: '' #ssh://user@ip_address
+      docker_stack_server: #user@ip_address
+
+apps:
+  api:
+    image: node:20.17-alpine
+    runner_tags:
+      - docker
+    code_analysis:
+      dtrack: true
+      commands:
+        - export NPM_CONFIG_USERCONFIG=$NPMRC
+        - apk add --update --no-cache python3
+        - yarn install --frozen-lockfile
+        - yarn run lint
+    build: false
+    test_docker: false
+    docker_build:
+      secrets:
+        - $NPMRC
+    deploy:
+      docker_stack: true
+  sdk: # sdk-build
+    image: node:20.9-alpine
+    branches:
+      - develop
+      - staging
+    build:
+      image: node:20.17-alpine
+      runner_tags:
+        - docker
+      commands:
+        - export NPM_CONFIG_USERCONFIG=$NPMRC
+        - yarn
+        - yarn build:sdk
+        - cd dist/libs/api-client-types
+        - timestamp=$(date +%s)
+        - echo "@828-investor-platform:registry=https://gitlab.pixelplex.by/api/v4/projects/${CI_PROJECT_ID}/packages/npm/">.npmrc # заменить название на имя проекта
+          # ./libs/api-client-types/package.json - тут тоже поменять название либы на имя проекта. Названаие в package.json и строке выше должны совпадать
+        - echo "//gitlab.pixelplex.by/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}">>.npmrc
+        - npm version 0.1.${timestamp}
+        - npm publish
+    docker_build: false
+    deploy: false
+    code_analysis: false
+
+custom_job: # джоба с миграциями
+  migrations:
+    after_stage: deploy
+    apps:
+      - api
+    image: docker:24.0.7-dind-alpine3.18
+    commands:
+      - mkdir /root/.ssh
+      - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > /root/.ssh/config
+      - echo "$ANSIBLE_SSHKEY" > /root/.ssh/id_rsa
+      - chmod 400 /root/.ssh/id_rsa
+      - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+      - docker-compose -f docker-compose.migrations.yml up -d
+    manual: true
