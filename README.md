@@ -1,4 +1,4 @@
-# NestJS Project Template
+# NestJS Project MyApptechka
 
 ## Description
 
